@@ -27,6 +27,9 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
+    compile 'com.android.support:design:23.1.1'
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'com.google.code.gson:gson:2.5'
 }
 
 apt {
