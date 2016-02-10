@@ -5,19 +5,19 @@ import android.support.v7.app.AppCompatActivity;
 
 import org.androidannotations.annotations.EActivity;
 
-import java.util.ArrayList;
-
 @EActivity
 public abstract class BaseActivity extends AppCompatActivity {
 
-  void showFragment(Fragment f) {
+  protected void showFragment(Fragment f) {
+    showFragment(f, android.R.id.content);
+  }
+
+  protected void showFragment(Fragment f, int contentId) {
     getFragmentManager()
         .beginTransaction()
-        .add(android.R.id.content, f, f.getClass().getName())
+        .add(contentId, f, f.getClass().getName())
         .addToBackStack(null)
         .commit();
-    ArrayList list = new ArrayList();
-    list.add(1);
   }
 
 }
