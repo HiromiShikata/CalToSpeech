@@ -2,8 +2,10 @@ package com.imorih.common;
 
 import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
 
 @EActivity
 public abstract class BaseActivity extends AppCompatActivity {
@@ -18,6 +20,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         .add(contentId, f, f.getClass().getName())
         .addToBackStack(null)
         .commit();
+  }
+
+  @UiThread
+  protected void toast(String text) {
+    Toast.makeText(BaseActivity.this, text, Toast.LENGTH_SHORT).show();
+
   }
 
 }

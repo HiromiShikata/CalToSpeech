@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.imorih.caltospeech.R;
 import com.imorih.caltospeech.activity.BaseAppActivity;
+import com.imorih.caltospeech.service.GCalendarService;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -17,7 +18,8 @@ import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.menu_main)
-public class MainActivity extends BaseAppActivity {
+public class MainActivity extends BaseAppActivity
+    implements ScheduleFragment.OnListFragmentInteractionListener {
 
   @ViewById(R.id.toolbar)
   Toolbar toolbar;
@@ -29,6 +31,8 @@ public class MainActivity extends BaseAppActivity {
   void afterViews() {
     setSupportActionBar(toolbar);
 
+    ScheduleFragment f = ScheduleFragment.newInstance();
+    showFragment(f, R.id.activity_main_schedule_list);
   }
 
   @Click(R.id.fab)
@@ -43,9 +47,15 @@ public class MainActivity extends BaseAppActivity {
     int id = item.getItemId();
 
     if (id == R.id.action_settings) {
+
       return true;
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public void onListFragmentInteraction(GCalendarService.GEvent item) {
+    toast(item.getTitle());
   }
 }
