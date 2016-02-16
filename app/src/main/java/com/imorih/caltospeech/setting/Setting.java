@@ -1,10 +1,12 @@
 package com.imorih.caltospeech.setting;
 
+import com.google.gson.Gson;
 import com.imorih.caltospeech.setting.pref.SettingPref_;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,12 @@ public class Setting {
 
   @AfterInject
   void afterInject() {
-    targetCalendars = new ArrayList<>();
+    String str = settingPref.calendars().getOr("");
+    if (StringUtils.isEmpty(str)) {
+      targetCalendars = new ArrayList<>();
+      return;
+    }
+    targetCalendars = new Gson().fromJson(str, ArrayList.class);
 
   }
 
@@ -33,13 +40,30 @@ public class Setting {
     return settingPref.speakEnglishIfOnlyAlphabet().getOr(true);
   }
 
+  public void setSpeakEnglishIfOnlyAlphabet(boolean speakEnglish) {
+    settingPref.speakEnglishIfOnlyAlphabet().put(speakEnglish);
+  }
+
+  public void setSpeakLastAllDayEvent(boolean speakLastAllDayEvent) {
+    settingPref.speakLaterAllDayEvent().put(speakLastAllDayEvent);
+  }
+
   public String targetEventNameRegex() {
     return settingPref.eventNameRegex().getOr("");
   }
 
-  public boolean isTargetCalendar(String calendarName) {
+  public void setTargetEventNameRegex(String regex) {
+    settingPref.eventNameRegex().put(regex);
+  }
+
+  public void setTargetCalendars(List<String> targetCalendars) {
+    String str = new Gson().toJson(targetCalendars);
+    settingPref.calendars().put(str);
+  }
+
+  public boolean isTargetCalendar(String calendarId) {
     for (String current : targetCalendars) {
-      if (current.equals(calendarName)) {
+      if (current.equals(calendarId)) {
         return true;
       }
     }

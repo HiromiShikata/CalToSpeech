@@ -1,9 +1,12 @@
 package com.imorih.caltospeech.service;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
+import android.support.v4.app.ActivityCompat;
 import android.text.format.Time;
 
 import com.imorih.caltospeech.setting.Setting;
@@ -28,6 +31,7 @@ public class GCalendarService {
 
   @Bean
   Setting setting;
+
 
   public List<GEvent> findTargetEvent() {
     List<GEvent> gEvents = new ArrayList<>();
@@ -134,6 +138,92 @@ public class GCalendarService {
     ;
     Uri uri = Uri.withAppendedPath(CalendarContract.Instances.CONTENT_BY_DAY_URI, path.toString());
     return uri;
+
+  }
+
+  public List<GCalendar> getCalendars() {
+    List<GCalendar> gCalendars = new ArrayList<>();
+    String[] projection = {
+        CalendarContract.Calendars._ID,
+        CalendarContract.Calendars.NAME,
+        CalendarContract.Calendars.ACCOUNT_NAME,
+        CalendarContract.Calendars.ACCOUNT_TYPE,
+        CalendarContract.Calendars.CALENDAR_COLOR
+    };
+    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+      return gCalendars;
+    }
+    Cursor cursor =
+        context.getContentResolver().query(
+            CalendarContract.Calendars.CONTENT_URI,
+            projection,
+            null,
+            null,
+            null);
+    for (boolean hasNext = cursor.moveToFirst(); hasNext; hasNext = cursor.moveToNext()) {
+      GCalendar gcal = new GCalendar();
+      gcal.setId(cursor.getString(0));
+      gcal.setName(cursor.getString(1));
+      gcal.setAccountName(cursor.getString(2));
+      gcal.setAccountType(cursor.getString(3));
+      gcal.setColor(cursor.getInt(4));
+      gCalendars.add(gcal);
+    }
+    return gCalendars;
+  }
+
+
+  public static class GCalendar {
+    private String id;
+    private String name;
+    private String accountType;
+    private String accountName;
+
+
+    private int color;
+
+
+    public int getColor() {
+      return color;
+    }
+
+    public void setColor(int color) {
+      this.color = color;
+    }
+
+    public String getAccountName() {
+      return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+      this.accountName = accountName;
+    }
+
+    public String getAccountType() {
+      return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+      this.accountType = accountType;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public String getId() {
+      return id;
+    }
+
+    public void setId(String id) {
+      this.id = id;
+    }
+
+
   }
 
   public static class GEvent {

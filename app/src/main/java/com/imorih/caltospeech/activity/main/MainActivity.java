@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.imorih.caltospeech.R;
 import com.imorih.caltospeech.activity.BaseAppActivity;
+import com.imorih.caltospeech.activity.setting.SettingActivity;
 import com.imorih.caltospeech.service.GCalendarService;
 
 import org.androidannotations.annotations.AfterViews;
@@ -47,7 +48,7 @@ public class MainActivity extends BaseAppActivity
     int id = item.getItemId();
 
     if (id == R.id.action_settings) {
-
+      SettingActivity.startActivity(this);
       return true;
     }
 

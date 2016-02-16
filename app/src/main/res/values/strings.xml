@@ -1,4 +1,18 @@
 <resources>
-    <string name="app_name">CalToSpeech</string>
+    <string name="app_name">CalToSpeech</string>2
     <string name="action_settings">Settings</string>
+
+    <string name="fragment.setting.calendars">Calendars</string>
+    <string name="fragment.setting.event_name_regex">Title Pattern</string>
+    <string name="fragment.setting.speak_english_if_only_alphabet">Speak as English, if title used only the Alphabet</string>
+    <string name="fragment.setting.speak_later_all_day_event">Speak the all-day events at last</string>
+
+
+    <!--
+    String calendars();
+    String eventNameRegex();
+    boolean speakEnglishIfOnlyAlphabet();
+    boolean speakLaterAllDayEvent();
+    -->
+
 </resources>

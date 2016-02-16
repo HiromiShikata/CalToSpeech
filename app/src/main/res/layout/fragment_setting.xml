@@ -1,0 +1,42 @@
+<LinearLayout
+    style="@style/Fragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context="com.imorih.caltospeech.activity.setting.SettingFragment">
+
+
+    <Switch
+        android:id="@+id/fragment_setting_speak_english_if_only_alphabet"
+        style="@style/Setting"
+        android:text="@string/fragment.setting.speak_english_if_only_alphabet"/>
+
+    <Switch
+        android:id="@+id/fragment_setting_speak_later_all_day_event"
+        style="@style/Setting"
+        android:text="@string/fragment.setting.speak_later_all_day_event"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/fragment_setting_event_name_regex"
+            style="@style/Setting"
+            android:hint="@string/fragment.setting.event_name_regex"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        style="@style/Setting"
+        android:paddingBottom="5dp"
+        android:text="@string/fragment.setting.calendars"/>
+
+
+    <ListView
+        android:id="@+id/fragment_setting_calendars"
+        style="@style/Setting"
+        android:paddingTop="5dp"/>
+
+
+</LinearLayout>
+

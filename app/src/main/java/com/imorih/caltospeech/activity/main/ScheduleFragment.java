@@ -27,6 +27,8 @@ public class ScheduleFragment extends BaseAppFragment {
   @Bean
   GCalendarService gCalendarService;
 
+  MyScheduleRecyclerViewAdapter adapter;
+
   public static ScheduleFragment newInstance() {
     return ScheduleFragment_
         .builder()
@@ -35,10 +37,16 @@ public class ScheduleFragment extends BaseAppFragment {
 
   @AfterViews
   void afterViews() {
+
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
     List<GCalendarService.GEvent> events =
         gCalendarService.findTargetEvent();
-    listView.setAdapter(new MyScheduleRecyclerViewAdapter(events, mListener));
-
+    adapter = new MyScheduleRecyclerViewAdapter(events, mListener);
+    listView.setAdapter(adapter);
   }
 
   @Override
