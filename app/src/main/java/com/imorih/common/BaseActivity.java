@@ -28,4 +28,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   }
 
+  protected void sleep(long ms) {
+    try {
+      Thread.sleep(ms);
+    } catch (InterruptedException e) {
+      //noop
+    }
+  }
+
 }

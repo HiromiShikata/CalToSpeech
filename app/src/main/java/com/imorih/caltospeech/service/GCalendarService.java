@@ -54,11 +54,11 @@ public class GCalendarService {
 
     Time time = new Time(Time.TIMEZONE_UTC);
     time.setToNow();
-    time.allDay = true;
+//    time.allDay = true;
 //    time.monthDay -= 1;
-    time.hour = 0;
-    time.minute = 0;
-    time.second = 0;
+//    time.hour = 0;
+//    time.minute = 0;
+//    time.second = 0;
 
     int start = time.getJulianDay(time.toMillis(true), 0);
     time.monthDay += 1;

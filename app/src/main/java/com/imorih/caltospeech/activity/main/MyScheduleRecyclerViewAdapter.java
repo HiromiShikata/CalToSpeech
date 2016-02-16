@@ -9,6 +9,9 @@ import android.widget.TextView;
 import com.imorih.caltospeech.R;
 import com.imorih.caltospeech.service.GCalendarService;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Date;
 import java.util.List;
 
 
@@ -31,9 +34,16 @@ public class MyScheduleRecyclerViewAdapter extends RecyclerView.Adapter<MySchedu
 
   @Override
   public void onBindViewHolder(final ViewHolder holder, int position) {
-    holder.mItem = mValues.get(position);
-    holder.mIdView.setText(mValues.get(position).getTitle());
-    holder.mContentView.setText(mValues.get(position).getEventLocation());
+    GCalendarService.GEvent event = mValues.get(position);
+
+
+    holder.mItem = event;
+    String text = event.getTitle() + " " + new Date(event.getBegin());
+    if (!StringUtils.isEmpty(event.getEventLocation())) {
+      text += " @" + event.getEventLocation();
+    }
+    holder.mIdView.setText(text);
+    holder.mContentView.setText(event.getEventLocation());
 
     holder.mView.setOnClickListener(new View.OnClickListener() {
       @Override
